@@ -1,0 +1,161 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+/* ClassPulse design tokens: navy / slate / white with a restrained teal accent. */
+:root {
+  /* ClassPulse brand palette (from the logo): navy #001A40 / deep navy #00133D,
+     royal #015095, teal #01B5C2, light teal #7CD1D9, slate #7991AF. */
+  --background: #f5f8fc;
+  --foreground: #0a1a3a;
+  --card: #ffffff;
+  --card-foreground: #0a1a3a;
+  --popover: #ffffff;
+  --popover-foreground: #0a1a3a;
+  --primary: #001a40; /* logo navy */
+  --primary-foreground: #ffffff;
+  --secondary: #eaf0f7;
+  --secondary-foreground: #0b2550;
+  --muted: #eaf0f7;
+  --muted-foreground: #4a5b78;
+  --accent: #e2f6f8;
+  --accent-foreground: #005f69;
+  --brand: #01b5c2; /* logo teal — fills, with navy text on top */
+  --brand-foreground: #00133d;
+  --brand-ink: #007a85; /* same hue, dark enough for text on white (4.9:1) */
+  --destructive: #c62f3b;
+  --destructive-foreground: #ffffff;
+  --border: #dce4ee;
+  --input: #c9d5e3;
+  --ring: #01b5c2;
+  --sidebar: #00133d;
+  --sidebar-2: #01285f;
+  --sidebar-foreground: #e6eef7;
+  --sidebar-muted: #a9b8cf;
+  --sidebar-accent: #0b2e63;
+  --sidebar-primary: #1cc6d3;
+  --radius: 0.75rem;
+}
+
+.dark {
+  --background: #050d1f;
+  --foreground: #e6eef7;
+  --card: #0b1730;
+  --card-foreground: #e6eef7;
+  --popover: #0d1b38;
+  --popover-foreground: #e6eef7;
+  --primary: #e3f3f6;
+  --primary-foreground: #00133d;
+  --secondary: #13244a;
+  --secondary-foreground: #e6eef7;
+  --muted: #13244a;
+  --muted-foreground: #9aaac4;
+  --accent: #0a3442;
+  --accent-foreground: #7cd1d9;
+  --brand: #1cc6d3;
+  --brand-foreground: #00133d;
+  --brand-ink: #4fd6e0;
+  --destructive: #ef5a64;
+  --destructive-foreground: #ffffff;
+  --border: #1b2d52;
+  --input: #253a63;
+  --ring: #1cc6d3;
+  --sidebar: #020818;
+  --sidebar-2: #071737;
+  --sidebar-foreground: #e6eef7;
+  --sidebar-muted: #8fa1bf;
+  --sidebar-accent: #0d2550;
+  --sidebar-primary: #1cc6d3;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-brand-ink: var(--brand-ink);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-muted: var(--sidebar-muted);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-2: var(--sidebar-2);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --font-sans: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+}
+
+@layer base {
+  * {
+    border-color: var(--border);
+  }
+  html {
+    -webkit-text-size-adjust: 100%;
+  }
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv11", "ss01";
+  }
+  /* Let grid children shrink below their content width (prevents horizontal page overflow on phones). */
+  .grid > * {
+    min-width: 0;
+  }
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}
+
+/* Printing: hide app chrome, keep content legible on paper. */
+@media print {
+  .no-print {
+    display: none !important;
+  }
+  body {
+    background: white !important;
+    color: black !important;
+  }
+  .print-full {
+    margin: 0 !important;
+    padding: 0 !important;
+    max-width: none !important;
+  }
+  .print-break {
+    break-before: page;
+  }
+  .card-print {
+    box-shadow: none !important;
+    border-color: #ccc !important;
+    break-inside: avoid;
+  }
+}
